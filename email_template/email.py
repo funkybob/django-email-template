@@ -48,10 +48,11 @@ def render_django_fields(template, context):
     message["subject"] = render_node(template, "subject", context)
 
     recipients = render_node(template, "recipients", context)
-    recipient_list = []
-    for recipient in recipients.split(","):
-        recipient_list.append(recipient.strip())
-    message["recipient_list"] = recipient_list
+    message["recipient_list"] = [
+        email
+        for email in (item.strip() for item in recipients.split(','))
+        if email
+    ]
 
     return message
 
