@@ -14,5 +14,7 @@ def get_node(template, name):
 def render_node(template, name, context):
     node = get_node(template, name)
     if node:
+        if VERSION > (1, 8):
+            context.template = template
         return node.render(context).strip()
     return ""
